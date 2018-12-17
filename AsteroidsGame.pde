@@ -1,7 +1,9 @@
 //your variable declarations here
 Spaceship s;
+
 Star stars[] = new Star[200];
-Asteroids rocks[] = new Asteroids[30];
+ArrayList <Asteroids> rocks = new ArrayList <Asteroids>();
+ArrayList <Bullet> shoot = new ArrayList <Bullet>();
 public void setup() 
 {
   size(500, 500);
@@ -9,8 +11,8 @@ public void setup()
   for (int i = 0; i<200; i++) {
     stars[i] = new Star();
   }
-  for (int f = 0; f<rocks.length; f++) {
-    rocks[f] = new Asteroids();
+  for (int f = 0; f<30; f++) {
+    rocks.add(new Asteroids());
   }
 }
 public void draw() 
@@ -21,10 +23,23 @@ public void draw()
   for (int i = 0; i<200; i++) {
     stars[i].show();
   }
-  for (int f = 0; f<rocks.length; f++) {
-    rocks[f].show();
-    rocks[f].move();
+  for (int f = 0; f<rocks.size(); f++) {
+    rocks.get(f).show();
+    rocks.get(f).move();
+    for (int j = 0; j<shoot.size(); j++) {
+      if ( dist(rocks.get(f).getX(), rocks.get(f).getY(), shoot.get(j).getX(), shoot.get(j).getY()) <= 10 ) {
+        rocks.remove(f);
+        shoot.remove(j);
+        break;
+      }
+    }
+    
   }
+  for (int j = 0; j<shoot.size(); j++) {
+    shoot.get(j).show();
+    shoot.get(j).move();
+  }
+  
 }
 public void keyPressed() {
   if (key == 'a') {
@@ -42,5 +57,8 @@ public void keyPressed() {
     s.myDirectionX = 0;
     s.myDirectionY = 0;  
     s.myPointDirection = (int)(Math.random()*360);
+  }
+  if (key == 'f') {
+    shoot.add(new Bullet(s));
   }
 }
