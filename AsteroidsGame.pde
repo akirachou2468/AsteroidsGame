@@ -51,7 +51,7 @@ public void keyPressed() {
   if (key == 'w') {
     s.accelerate(0.2);
   } 
-  if (keyCode == TAB) {
+  if (key == 'e') {
     s.myCenterX = (int)(Math.random()*500);
     s.myCenterY = (int)(Math.random()*500);  
     s.myDirectionX = 0;
